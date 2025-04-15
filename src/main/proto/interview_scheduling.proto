@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.recruitment.grpc.interview";
+option java_outer_classname = "InterviewSchedulingProto";
+
+service InterviewScheduling {
+  rpc AddAvailability (AvailabilityRequest) returns (AvailabilityResponse);
+  rpc ScheduleInterview (ScheduleRequest) returns (ScheduleResponse);
+  rpc GetSchedule (ScheduleQuery) returns (ScheduleDetails);
+}
+
+message AvailabilityRequest {
+  string user_id = 1;
+  string role = 2; // candidate or interviewer
+  repeated string available_times = 3; // ISO-8601 strings
+}
+
+message AvailabilityResponse {
+  string status = 1;
+}
+
+message ScheduleRequest {
+  string candidate_id = 1;
+  string interviewer_id = 2;
+}
+
+message ScheduleResponse {
+  string status = 1;
+  string scheduled_time = 2;
+}
+
+message ScheduleQuery {
+  string user_id = 1;
+}
+
+message ScheduleDetails {
+  string user_id = 1;
+  repeated string scheduled_times = 2;
+}
