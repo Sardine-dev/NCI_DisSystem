@@ -1,63 +1,88 @@
 package com.recruitment.grpc;
 
-import com.recruitment.grpc.candidate.CandidateID;
-import com.recruitment.grpc.candidate.CandidateScreeningGrpc;
-import com.recruitment.grpc.candidate.ScoreResponse;
-
+import com.recruitment.grpc.candidate.*;
+import com.recruitment.grpc.interview.*;
+import com.recruitment.grpc.job.JobMatchRequest;
+import com.recruitment.grpc.job.JobMatchResponse;
+import com.recruitment.grpc.job.JobMatchingGrpc;
+import com.recruitment.grpc.security.JwtTestUtil;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.Metadata;
-import io.grpc.ClientInterceptor;
 import io.grpc.stub.MetadataUtils;
 
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-
-import java.nio.charset.StandardCharsets;
 
 public class GrpcClient {
 
-    private static final String SECRET_KEY = "this-is-a-very-strong-secret-key-32-bytes!";
+    private ManagedChannel channel=null;
+    private CandidateScreeningGrpc.CandidateScreeningBlockingStub candidateStub =null;
+    private InterviewSchedulingGrpc.InterviewSchedulingBlockingStub interviewStub =null;
+    private JobMatchingGrpc.JobMatchingBlockingStub jobStub =null;
 
-    public static void main(String[] args) {
-        // JWT 생성
-        String jwt = Jwts.builder()
-                .setSubject("test-user")
-                .signWith(SignatureAlgorithm.HS256, SECRET_KEY.getBytes(StandardCharsets.UTF_8))
-                .compact();
-
-        System.out.println("Generated JWT: " + jwt);
-
-        // Metadata 생성 및 JWT 추가
-        Metadata metadata = new Metadata();
-        Metadata.Key<String> AUTHORIZATION_KEY =
-                Metadata.Key.of("authorization", Metadata.ASCII_STRING_MARSHALLER);
-        metadata.put(AUTHORIZATION_KEY, "Bearer " + jwt);
-
-        // 인터셉터 생성
-        ClientInterceptor interceptor = MetadataUtils.newAttachHeadersInterceptor(metadata);
-
-        // gRPC 채널 생성
-        ManagedChannel channel = ManagedChannelBuilder
-                .forAddress("localhost", 50051)
+    public GrpcClient() {
+        channel = ManagedChannelBuilder.forAddress("localhost", 50051)
                 .usePlaintext()
                 .build();
 
-        // 인터셉터를 포함한 stub 생성
-        CandidateScreeningGrpc.CandidateScreeningBlockingStub stub =
-                CandidateScreeningGrpc.newBlockingStub(channel)
-                        .withInterceptors(interceptor);
+        String token = JwtTestUtil.createTestToken();
+        Metadata metadata = new Metadata();
+        metadata.put(Metadata.Key.of("authorization", Metadata.ASCII_STRING_MARSHALLER), "Bearer " + token);
 
-        // 요청 생성
-        CandidateID request = CandidateID.newBuilder()
-                .setCandidateId("test-001")
+        candidateStub = CandidateScreeningGrpc.newBlockingStub(channel)
+                .withInterceptors(MetadataUtils.newAttachHeadersInterceptor(metadata));
+
+        interviewStub = InterviewSchedulingGrpc.newBlockingStub(channel)
+                .withInterceptors(MetadataUtils.newAttachHeadersInterceptor(metadata));
+
+        jobStub = JobMatchingGrpc.newBlockingStub(channel)
+                .withInterceptors(MetadataUtils.newAttachHeadersInterceptor(metadata));
+    }
+
+    public double getCandidateScore(String candidateId) {
+        CandidateID request = CandidateID.newBuilder().setCandidateId(candidateId).build();
+        ScoreResponse response = candidateStub.getCandidateScore(request);
+        
+        return response.getScore();
+    }
+
+    public void addAvailability(String userId, String role, java.util.List<String> times) {
+        AvailabilityRequest request = AvailabilityRequest.newBuilder()
+                .setUserId(userId)
+                .setRole(role)
+                .addAllAvailableTimes(times)
                 .build();
+        interviewStub.addAvailability(request);
+    }
 
-        // 호출 및 응답 출력
-        ScoreResponse response = stub.getCandidateScore(request);
-        System.out.println("Score: " + response.getScore());
+    public String scheduleInterview(String candidateId, String interviewerId) {
+        ScheduleRequest request = ScheduleRequest.newBuilder()
+                .setCandidateId(candidateId)
+                .setInterviewerId(interviewerId)
+                .build();
+        ScheduleResponse response = interviewStub.scheduleInterview(request);
+        return response.getScheduledTime();
+    }
 
-        // 채널 종료
-        channel.shutdown();
+    public java.util.List<String> getSchedule(String userId) {
+        ScheduleQuery query = ScheduleQuery.newBuilder()
+                .setUserId(userId)
+                .build();
+        ScheduleDetails details = interviewStub.getSchedule(query);
+        return details.getScheduledTimesList();
+    }
+
+    public JobMatchResponse matchJob(String candidateId, java.util.List<String> skills, String desiredRole) {
+        JobMatchRequest request = JobMatchRequest.newBuilder()
+                .setCandidateId(candidateId)
+                .addAllSkills(skills)
+                .setDesiredRole(desiredRole)
+                .build();
+        return jobStub.matchJob(request);
+    }
+
+    public void shutdown() {
+        if (channel != null) {
+            channel.shutdown();
+        }
     }
 }
