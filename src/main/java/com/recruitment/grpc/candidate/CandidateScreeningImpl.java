@@ -1,35 +1,48 @@
 package com.recruitment.grpc.candidate;
 
 import io.grpc.stub.StreamObserver;
+import java.util.logging.Logger;
 
 public class CandidateScreeningImpl extends CandidateScreeningGrpc.CandidateScreeningImplBase {
 
+    private static final Logger logger = Logger.getLogger(CandidateScreeningImpl.class.getName());
+
     @Override
     public void submitResume(ResumeRequest request, StreamObserver<ScreeningResponse> responseObserver) {
-        System.out.println("📥 이력서 제출됨: " + request.getCandidateId());
+        logger.info("[CandidateScreening] submitResume called. CandidateId=" + request.getCandidateId());
+        try {
+            ScreeningResponse response = ScreeningResponse.newBuilder()
+                    .setCandidateId(request.getCandidateId())
+                    .setStatus("OK") // Example status
+                    .build();
 
-        ScreeningResponse response = ScreeningResponse.newBuilder()
-                .setCandidateId(request.getCandidateId())
-                .setStatus("OK") // 또는 처리 결과
-                .build();
-
-        responseObserver.onNext(response);
-        responseObserver.onCompleted();
+            responseObserver.onNext(response);
+            responseObserver.onCompleted();
+            logger.info("[CandidateScreening] submitResume successful for CandidateId=" + request.getCandidateId());
+        } catch (Exception e) {
+            logger.severe("[CandidateScreening] Error in submitResume: " + e.getMessage());
+            responseObserver.onError(e);
+        }
     }
 
     @Override
     public void getCandidateScore(CandidateID request, StreamObserver<ScoreResponse> responseObserver) {
-        System.out.println("📊 점수 요청: " + request.getCandidateId());
+        logger.info("[CandidateScreening] getCandidateScore called. CandidateId=" + request.getCandidateId());
+        try {
+            // Dummy score calculation
+            float score = 87.5f;
 
-        // 예시 점수 계산 (더미 데이터)
-        float score = 87.5f;
+            ScoreResponse response = ScoreResponse.newBuilder()
+                    .setCandidateId(request.getCandidateId())
+                    .setScore(score)
+                    .build();
 
-        ScoreResponse response = ScoreResponse.newBuilder()
-                .setCandidateId(request.getCandidateId())
-                .setScore(score)
-                .build();
-
-        responseObserver.onNext(response);
-        responseObserver.onCompleted();
+            responseObserver.onNext(response);
+            responseObserver.onCompleted();
+            logger.info("[CandidateScreening] getCandidateScore successful for CandidateId=" + request.getCandidateId());
+        } catch (Exception e) {
+            logger.severe("[CandidateScreening] Error in getCandidateScore: " + e.getMessage());
+            responseObserver.onError(e);
+        }
     }
 }

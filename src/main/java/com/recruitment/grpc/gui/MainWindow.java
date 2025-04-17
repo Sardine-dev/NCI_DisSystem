@@ -15,14 +15,17 @@ import com.recruitment.grpc.job.JobMatchResponse;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 /**
  *
  * @author hoon3
  */
 public class MainWindow extends JFrame {
-    
     private GrpcClient grpcClient;
     private JTextArea resultArea;
+    private static Logger logger = Logger.getLogger(MainWindow.class.getName());
 
     public MainWindow() {
         grpcClient = new GrpcClient();
@@ -32,7 +35,15 @@ public class MainWindow extends JFrame {
         setSize(600, 500);
         setLayout(new BorderLayout());
 
-        // Top Panel for Buttons
+        try {
+            FileHandler fh = new FileHandler("client-log.txt", true);
+            fh.setFormatter(new SimpleFormatter());
+            logger.addHandler(fh);
+            logger.setUseParentHandlers(false);
+        } catch (Exception e) {
+            System.err.println("Logger initialization failed: " + e.getMessage());
+        }
+
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(2, 2, 10, 10));
 
@@ -48,21 +59,23 @@ public class MainWindow extends JFrame {
 
         add(panel, BorderLayout.NORTH);
 
-        // Result Area
         resultArea = new JTextArea();
         resultArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(resultArea);
         add(scrollPane, BorderLayout.CENTER);
 
-        // Action Listeners
         btnGetScore.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
                     double score = grpcClient.getCandidateScore("test-001");
-                    resultArea.append("Candidate Score: " + score + "\n");
+                    String message = "Candidate Score: " + score;
+                    resultArea.append(message + "\n");
+                    logger.info(message);
                 } catch (Exception ex) {
-                    resultArea.append("Error fetching candidate score.\n");
+                    String error = "Error fetching candidate score: " + ex.getMessage();
+                    resultArea.append(error + "\n");
+                    logger.severe(error);
                 }
             }
         });
@@ -73,9 +86,13 @@ public class MainWindow extends JFrame {
                 try {
                     grpcClient.addAvailability("candidate-123", "candidate", Arrays.asList("2025-04-14T10:00"));
                     grpcClient.addAvailability("interviewer-456", "interviewer", Arrays.asList("2025-04-14T11:00"));
-                    resultArea.append("Availability added for candidate and interviewer.\n");
+                    String message = "Availability added for candidate and interviewer.";
+                    resultArea.append(message + "\n");
+                    logger.info(message);
                 } catch (Exception ex) {
-                    resultArea.append("Error adding availability.\n");
+                    String error = "Error adding availability: " + ex.getMessage();
+                    resultArea.append(error + "\n");
+                    logger.severe(error);
                 }
             }
         });
@@ -85,9 +102,13 @@ public class MainWindow extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     String time = grpcClient.scheduleInterview("candidate-123", "interviewer-456");
-                    resultArea.append("Interview scheduled at: " + time + "\n");
+                    String message = "Interview scheduled at: " + time;
+                    resultArea.append(message + "\n");
+                    logger.info(message);
                 } catch (Exception ex) {
-                    resultArea.append("Error scheduling interview.\n");
+                    String error = "Error scheduling interview: " + ex.getMessage();
+                    resultArea.append(error + "\n");
+                    logger.severe(error);
                 }
             }
         });
@@ -97,22 +118,21 @@ public class MainWindow extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     JobMatchResponse response = grpcClient.matchJob("candidate-007", Arrays.asList("Java", "React", "Docker"), "Fullstack");
-                    resultArea.append("Matched Job:\n");
-                    resultArea.append("- ID: " + response.getMatchedJobId() + "\n");
-                    resultArea.append("- Title: " + response.getTitle() + "\n");
-                    resultArea.append("- Score: " + response.getMatchScore() + "\n");
+                    String message = "Matched Job:\n- ID: " + response.getMatchedJobId() + "\n- Title: " + response.getTitle() + "\n- Score: " + response.getMatchScore();
+                    resultArea.append(message + "\n");
+                    logger.info(message);
                 } catch (Exception ex) {
-                    resultArea.append("Error matching job.\n");
+                    String error = "Error matching job: " + ex.getMessage();
+                    resultArea.append(error + "\n");
+                    logger.severe(error);
                 }
             }
         });
 
         setVisible(true);
     }
-        // <--- 이 부분 추가
     public static void main(String[] args) {
-        java.awt.EventQueue.invokeLater(() -> {
-            new MainWindow();
-        });
+        // Launch the MainWindow
+        new MainWindow();
     }
 }

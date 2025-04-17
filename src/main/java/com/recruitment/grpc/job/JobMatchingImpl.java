@@ -1,12 +1,27 @@
 package com.recruitment.grpc.job;
 
 import io.grpc.stub.StreamObserver;
-
 import java.util.*;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 public class JobMatchingImpl extends JobMatchingGrpc.JobMatchingImplBase {
 
-    // Simulated job database
+    private static final Logger logger = Logger.getLogger(JobMatchingImpl.class.getName());
+
+    static {
+        try {
+            FileHandler fh = new FileHandler("recruitment_system.log", true);
+            fh.setFormatter(new SimpleFormatter());
+            logger.addHandler(fh);
+            logger.setLevel(Level.ALL);
+        } catch (Exception e) {
+            System.err.println("Failed to initialize logger: " + e.getMessage());
+        }
+    }
+
     private final List<Job> jobDatabase = List.of(
         new Job("job-001", "Backend Developer", Set.of("Java", "Spring", "SQL")),
         new Job("job-002", "Frontend Developer", Set.of("React", "JavaScript", "HTML")),
@@ -15,54 +30,58 @@ public class JobMatchingImpl extends JobMatchingGrpc.JobMatchingImplBase {
 
     @Override
     public void matchJob(JobMatchRequest request, StreamObserver<JobMatchResponse> responseObserver) {
-        String candidateId = request.getCandidateId();
-        Set<String> candidateSkills = new HashSet<>(request.getSkillsList());
-        String desiredRole = request.getDesiredRole();
+        try {
+            String candidateId = request.getCandidateId();
+            Set<String> candidateSkills = new HashSet<>(request.getSkillsList());
+            String desiredRole = request.getDesiredRole();
 
-        System.out.println("[JobMatching] Matching for candidate: " + candidateId);
+            logger.info("[JobMatching] Matching for candidate: " + candidateId);
 
-        Job bestMatch = null;
-        int highestScore = -1;
+            Job bestMatch = null;
+            int highestScore = -1;
 
-        for (Job job : jobDatabase) {
-            // Only match jobs related to desired role
-            if (!job.title.toLowerCase().contains(desiredRole.toLowerCase())) continue;
+            for (Job job : jobDatabase) {
+                if (!job.title.toLowerCase().contains(desiredRole.toLowerCase())) continue;
 
-            Set<String> jobSkills = job.skills;
-            Set<String> intersection = new HashSet<>(candidateSkills);
-            intersection.retainAll(jobSkills);
+                Set<String> jobSkills = job.skills;
+                Set<String> intersection = new HashSet<>(candidateSkills);
+                intersection.retainAll(jobSkills);
 
-            int score = intersection.size(); // simple skill match count
+                int score = intersection.size();
 
-            if (score > highestScore) {
-                highestScore = score;
-                bestMatch = job;
+                if (score > highestScore) {
+                    highestScore = score;
+                    bestMatch = job;
+                }
             }
+
+            JobMatchResponse.Builder responseBuilder = JobMatchResponse.newBuilder();
+
+            if (bestMatch != null) {
+                float matchScore = (float) highestScore / bestMatch.skills.size();
+                responseBuilder
+                    .setMatchedJobId(bestMatch.id)
+                    .setTitle(bestMatch.title)
+                    .setMatchScore(matchScore);
+
+                logger.info("[JobMatching] Matched: " + bestMatch.title + " (score: " + matchScore + ")");
+            } else {
+                responseBuilder
+                    .setMatchedJobId("none")
+                    .setTitle("No matching job found")
+                    .setMatchScore(0);
+
+                logger.warning("[JobMatching] No matching job found.");
+            }
+
+            responseObserver.onNext(responseBuilder.build());
+            responseObserver.onCompleted();
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error in matchJob: ", e);
+            responseObserver.onError(e);
         }
-
-        JobMatchResponse.Builder responseBuilder = JobMatchResponse.newBuilder();
-
-        if (bestMatch != null) {
-            float matchScore = (float) highestScore / bestMatch.skills.size();
-
-            responseBuilder
-                .setMatchedJobId(bestMatch.id)
-                .setTitle(bestMatch.title)
-                .setMatchScore(matchScore);
-
-            System.out.println("[JobMatching] Matched: " + bestMatch.title + " (score: " + matchScore + ")");
-        } else {
-            responseBuilder
-                .setMatchedJobId("none")
-                .setTitle("No matching job found")
-                .setMatchScore(0);
-        }
-
-        responseObserver.onNext(responseBuilder.build());
-        responseObserver.onCompleted();
     }
 
-    // Inner class representing a job
     private static class Job {
         String id;
         String title;

@@ -3,8 +3,23 @@ package com.recruitment.grpc.security;
 import io.grpc.*;
 import io.jsonwebtoken.*;
 import javax.crypto.SecretKey;
+import java.util.logging.Logger;
+import java.util.logging.FileHandler;
+import java.util.logging.SimpleFormatter;
 
 public class JwtServerInterceptor implements ServerInterceptor {
+
+    private static final Logger logger = Logger.getLogger(JwtServerInterceptor.class.getName());
+
+    static {
+        try {
+            FileHandler fileHandler = new FileHandler("recruitment_system.log", true);
+            fileHandler.setFormatter(new SimpleFormatter());
+            logger.addHandler(fileHandler);
+        } catch (Exception e) {
+            System.err.println("Failed to set up logger in JwtServerInterceptor: " + e.getMessage());
+        }
+    }
 
     @Override
     public <ReqT, RespT> ServerCall.Listener<ReqT> interceptCall(
@@ -12,32 +27,36 @@ public class JwtServerInterceptor implements ServerInterceptor {
         Metadata headers,
         ServerCallHandler<ReqT, RespT> next
     ) {
-        // Extract Authorization header
         String authHeader = headers.get(Metadata.Key.of("authorization", Metadata.ASCII_STRING_MARSHALLER));
 
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            logger.warning("Missing or invalid Authorization header.");
             call.close(Status.UNAUTHENTICATED.withDescription("Missing or invalid Authorization header"), headers);
             return new ServerCall.Listener<>() {};
         }
 
-        String token = authHeader.substring(7); // Remove "Bearer "
+        String token = authHeader.substring(7);
 
         try {
-            // Get the shared signing key from JwtTestUtil
             SecretKey key = JwtTestUtil.getSigningKey();
 
-            // Parse and validate the token
             Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()
                 .parseClaimsJws(token);
 
+            logger.info("JWT authentication succeeded.");
+
         } catch (JwtException e) {
+            logger.warning("Invalid JWT token: " + e.getMessage());
             call.close(Status.UNAUTHENTICATED.withDescription("Invalid JWT: " + e.getMessage()), headers);
+            return new ServerCall.Listener<>() {};
+        } catch (Exception e) {
+            logger.severe("Unexpected error during JWT verification: " + e.getMessage());
+            call.close(Status.INTERNAL.withDescription("Server error during authentication"), headers);
             return new ServerCall.Listener<>() {};
         }
 
-        // Proceed with the call if the token is valid
         return next.startCall(call, headers);
     }
 }
