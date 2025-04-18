@@ -48,3 +48,14 @@
 - ID: job-003
 - Title: Fullstack Developer
 - Score: 0.75
+4월 18, 2025 10:03:25 오전 com.recruitment.grpc.gui.MainWindow$2 actionPerformed
+정보: Candidate Score: 87.0
+4월 18, 2025 10:03:25 오전 com.recruitment.grpc.gui.MainWindow$3 actionPerformed
+정보: Availability added for candidate and interviewer.
+4월 18, 2025 10:03:26 오전 com.recruitment.grpc.gui.MainWindow$4 actionPerformed
+정보: Interview scheduled at: No common time available
+4월 18, 2025 10:03:26 오전 com.recruitment.grpc.gui.MainWindow$5 actionPerformed
+정보: Matched Job:
+- ID: job-003
+- Title: Fullstack Developer
+- Score: 0.75
