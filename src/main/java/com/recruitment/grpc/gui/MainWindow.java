@@ -11,9 +11,8 @@ import java.awt.event.ActionListener;
 import java.util.Arrays;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import com.recruitment.grpc.job.JobMatchResponse;
+import com.recruitment.grpc.job.JobMatchingOuterClass.JobMatchResponse;
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
@@ -51,6 +50,18 @@ public class MainWindow extends JFrame {
         JButton btnAddAvailability = new JButton("Add Availability");
         JButton btnScheduleInterview = new JButton("Schedule Interview");
         JButton btnJobMatching = new JButton("Job Matching");
+        JButton btnStreamScores = new JButton("Stream Candidate Scores");
+        JButton btnBulkAvailability = new JButton("Bulk Add Availability");
+        JButton btnStreamJobMatches = new JButton("Stream Job Matches");
+        // 버튼 추가
+        JButton btnSubmitMultipleResumes = new JButton("Submit Multiple Resumes");
+
+        // 기존 버튼 패널에 추가
+        panel.add(btnSubmitMultipleResumes);
+
+        panel.add(btnStreamScores);
+        panel.add(btnBulkAvailability);
+        panel.add(btnStreamJobMatches);
 
         panel.add(btnGetScore);
         panel.add(btnAddAvailability);
@@ -63,7 +74,17 @@ public class MainWindow extends JFrame {
         resultArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(resultArea);
         add(scrollPane, BorderLayout.CENTER);
-
+        btnSubmitMultipleResumes.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            try {
+                grpcClient.submitMultipleResumes(Arrays.asList("candidate-1", "candidate-2", "candidate-3"));
+                resultArea.append("Multiple resumes submitted.\n");
+            } catch (Exception ex) {
+              resultArea.append("Error submitting multiple resumes: " + ex.getMessage() + "\n");
+            }
+        }
+        });
         btnGetScore.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -128,6 +149,40 @@ public class MainWindow extends JFrame {
                 }
             }
         });
+           
+         btnStreamScores.addActionListener(new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        try {
+            java.util.List<String> candidateIds = Arrays.asList("test-001", "test-002", "test-003");
+            grpcClient.streamCandidateScores(candidateIds, resultArea);
+        } catch (Exception ex) {
+            resultArea.append("Error streaming candidate scores: " + ex.getMessage() + "\n");
+        }
+    }
+});      
+         
+         btnBulkAvailability.addActionListener(new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        try {
+            grpcClient.bulkAddAvailability(resultArea);
+        } catch (Exception ex) {
+            resultArea.append("Error bulk adding availability: " + ex.getMessage() + "\n");
+        }
+    }
+});
+         
+         btnStreamJobMatches.addActionListener(new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        try {
+            grpcClient.streamJobMatches(Arrays.asList("Java", "Docker", "React"), resultArea);
+        } catch (Exception ex) {
+            resultArea.append("Error streaming job matches: " + ex.getMessage() + "\n");
+        }
+    }
+});
 
         setVisible(true);
     }

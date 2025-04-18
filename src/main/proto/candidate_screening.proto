@@ -1,13 +1,6 @@
 syntax = "proto3";
 
-option java_multiple_files = true;
-option java_package = "com.recruitment.grpc.candidate";
-option java_outer_classname = "CandidateScreeningProto";
-
-service CandidateScreening {
-  rpc SubmitResume (ResumeRequest) returns (ScreeningResponse);
-  rpc GetCandidateScore (CandidateID) returns (ScoreResponse);
-}
+package com.recruitment.grpc.candidate;
 
 message ResumeRequest {
   string candidate_id = 1;
@@ -23,7 +16,22 @@ message CandidateID {
   string candidate_id = 1;
 }
 
+message CandidateScoreRequest {
+  repeated string candidate_ids = 1;
+}
+
 message ScoreResponse {
   string candidate_id = 1;
   float score = 2;
 }
+
+service CandidateScreening {
+  rpc SubmitResume(ResumeRequest) returns (ScreeningResponse);
+  rpc GetCandidateScore(CandidateID) returns (ScoreResponse);
+  
+  
+  rpc StreamCandidateScores(CandidateScoreRequest) returns (stream ScoreResponse);
+  rpc submitMultipleResumes (stream ResumeRequest) returns (ScreeningResponse);
+
+}
+

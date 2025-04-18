@@ -1,5 +1,7 @@
 package com.recruitment.grpc.job;
 
+import com.recruitment.grpc.job.JobMatchingOuterClass.JobMatchRequest;
+import com.recruitment.grpc.job.JobMatchingOuterClass.JobMatchResponse;
 import io.grpc.stub.StreamObserver;
 import java.util.*;
 import java.util.logging.FileHandler;
@@ -81,6 +83,60 @@ public class JobMatchingImpl extends JobMatchingGrpc.JobMatchingImplBase {
             responseObserver.onError(e);
         }
     }
+    @Override
+public StreamObserver<JobMatchRequest> streamJobMatches(final StreamObserver<JobMatchResponse> responseObserver) {
+    return new StreamObserver<JobMatchRequest>() {
+        @Override
+        public void onNext(JobMatchRequest request) {
+            String candidateId = request.getCandidateId();
+            Set<String> candidateSkills = new HashSet<>(request.getSkillsList());
+            String desiredRole = request.getDesiredRole();
+
+            Job bestMatch = null;
+            int highestScore = -1;
+
+            for (Job job : jobDatabase) {
+                if (!job.title.toLowerCase().contains(desiredRole.toLowerCase())) continue;
+
+                Set<String> jobSkills = job.skills;
+                Set<String> intersection = new HashSet<>(candidateSkills);
+                intersection.retainAll(jobSkills);
+
+                int score = intersection.size();
+                if (score > highestScore) {
+                    highestScore = score;
+                    bestMatch = job;
+                }
+            }
+
+            JobMatchResponse.Builder responseBuilder = JobMatchResponse.newBuilder();
+            if (bestMatch != null) {
+                float matchScore = (float) highestScore / bestMatch.skills.size();
+                responseBuilder
+                        .setMatchedJobId(bestMatch.id)
+                        .setTitle(bestMatch.title)
+                        .setMatchScore(matchScore);
+            } else {
+                responseBuilder
+                        .setMatchedJobId("none")
+                        .setTitle("No matching job found")
+                        .setMatchScore(0);
+            }
+
+            responseObserver.onNext(responseBuilder.build());
+        }
+
+        @Override
+        public void onError(Throwable t) {
+            System.err.println("StreamJobMatches error: " + t.getMessage());
+        }
+
+        @Override
+        public void onCompleted() {
+            responseObserver.onCompleted();
+        }
+    };
+}
 
     private static class Job {
         String id;

@@ -12,32 +12,32 @@ public final class CandidateScreeningGrpc {
 
   private CandidateScreeningGrpc() {}
 
-  public static final java.lang.String SERVICE_NAME = "CandidateScreening";
+  public static final java.lang.String SERVICE_NAME = "com.recruitment.grpc.candidate.CandidateScreening";
 
   // Static method descriptors that strictly reflect the proto.
-  private static volatile io.grpc.MethodDescriptor<com.recruitment.grpc.candidate.ResumeRequest,
-      com.recruitment.grpc.candidate.ScreeningResponse> getSubmitResumeMethod;
+  private static volatile io.grpc.MethodDescriptor<com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ResumeRequest,
+      com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ScreeningResponse> getSubmitResumeMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "SubmitResume",
-      requestType = com.recruitment.grpc.candidate.ResumeRequest.class,
-      responseType = com.recruitment.grpc.candidate.ScreeningResponse.class,
+      requestType = com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ResumeRequest.class,
+      responseType = com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ScreeningResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<com.recruitment.grpc.candidate.ResumeRequest,
-      com.recruitment.grpc.candidate.ScreeningResponse> getSubmitResumeMethod() {
-    io.grpc.MethodDescriptor<com.recruitment.grpc.candidate.ResumeRequest, com.recruitment.grpc.candidate.ScreeningResponse> getSubmitResumeMethod;
+  public static io.grpc.MethodDescriptor<com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ResumeRequest,
+      com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ScreeningResponse> getSubmitResumeMethod() {
+    io.grpc.MethodDescriptor<com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ResumeRequest, com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ScreeningResponse> getSubmitResumeMethod;
     if ((getSubmitResumeMethod = CandidateScreeningGrpc.getSubmitResumeMethod) == null) {
       synchronized (CandidateScreeningGrpc.class) {
         if ((getSubmitResumeMethod = CandidateScreeningGrpc.getSubmitResumeMethod) == null) {
           CandidateScreeningGrpc.getSubmitResumeMethod = getSubmitResumeMethod =
-              io.grpc.MethodDescriptor.<com.recruitment.grpc.candidate.ResumeRequest, com.recruitment.grpc.candidate.ScreeningResponse>newBuilder()
+              io.grpc.MethodDescriptor.<com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ResumeRequest, com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ScreeningResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "SubmitResume"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.recruitment.grpc.candidate.ResumeRequest.getDefaultInstance()))
+                  com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ResumeRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.recruitment.grpc.candidate.ScreeningResponse.getDefaultInstance()))
+                  com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ScreeningResponse.getDefaultInstance()))
               .setSchemaDescriptor(new CandidateScreeningMethodDescriptorSupplier("SubmitResume"))
               .build();
         }
@@ -46,35 +46,97 @@ public final class CandidateScreeningGrpc {
     return getSubmitResumeMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<com.recruitment.grpc.candidate.CandidateID,
-      com.recruitment.grpc.candidate.ScoreResponse> getGetCandidateScoreMethod;
+  private static volatile io.grpc.MethodDescriptor<com.recruitment.grpc.candidate.CandidateScreeningOuterClass.CandidateID,
+      com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ScoreResponse> getGetCandidateScoreMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "GetCandidateScore",
-      requestType = com.recruitment.grpc.candidate.CandidateID.class,
-      responseType = com.recruitment.grpc.candidate.ScoreResponse.class,
+      requestType = com.recruitment.grpc.candidate.CandidateScreeningOuterClass.CandidateID.class,
+      responseType = com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ScoreResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<com.recruitment.grpc.candidate.CandidateID,
-      com.recruitment.grpc.candidate.ScoreResponse> getGetCandidateScoreMethod() {
-    io.grpc.MethodDescriptor<com.recruitment.grpc.candidate.CandidateID, com.recruitment.grpc.candidate.ScoreResponse> getGetCandidateScoreMethod;
+  public static io.grpc.MethodDescriptor<com.recruitment.grpc.candidate.CandidateScreeningOuterClass.CandidateID,
+      com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ScoreResponse> getGetCandidateScoreMethod() {
+    io.grpc.MethodDescriptor<com.recruitment.grpc.candidate.CandidateScreeningOuterClass.CandidateID, com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ScoreResponse> getGetCandidateScoreMethod;
     if ((getGetCandidateScoreMethod = CandidateScreeningGrpc.getGetCandidateScoreMethod) == null) {
       synchronized (CandidateScreeningGrpc.class) {
         if ((getGetCandidateScoreMethod = CandidateScreeningGrpc.getGetCandidateScoreMethod) == null) {
           CandidateScreeningGrpc.getGetCandidateScoreMethod = getGetCandidateScoreMethod =
-              io.grpc.MethodDescriptor.<com.recruitment.grpc.candidate.CandidateID, com.recruitment.grpc.candidate.ScoreResponse>newBuilder()
+              io.grpc.MethodDescriptor.<com.recruitment.grpc.candidate.CandidateScreeningOuterClass.CandidateID, com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ScoreResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetCandidateScore"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.recruitment.grpc.candidate.CandidateID.getDefaultInstance()))
+                  com.recruitment.grpc.candidate.CandidateScreeningOuterClass.CandidateID.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.recruitment.grpc.candidate.ScoreResponse.getDefaultInstance()))
+                  com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ScoreResponse.getDefaultInstance()))
               .setSchemaDescriptor(new CandidateScreeningMethodDescriptorSupplier("GetCandidateScore"))
               .build();
         }
       }
     }
     return getGetCandidateScoreMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<com.recruitment.grpc.candidate.CandidateScreeningOuterClass.CandidateScoreRequest,
+      com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ScoreResponse> getStreamCandidateScoresMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "StreamCandidateScores",
+      requestType = com.recruitment.grpc.candidate.CandidateScreeningOuterClass.CandidateScoreRequest.class,
+      responseType = com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ScoreResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+  public static io.grpc.MethodDescriptor<com.recruitment.grpc.candidate.CandidateScreeningOuterClass.CandidateScoreRequest,
+      com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ScoreResponse> getStreamCandidateScoresMethod() {
+    io.grpc.MethodDescriptor<com.recruitment.grpc.candidate.CandidateScreeningOuterClass.CandidateScoreRequest, com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ScoreResponse> getStreamCandidateScoresMethod;
+    if ((getStreamCandidateScoresMethod = CandidateScreeningGrpc.getStreamCandidateScoresMethod) == null) {
+      synchronized (CandidateScreeningGrpc.class) {
+        if ((getStreamCandidateScoresMethod = CandidateScreeningGrpc.getStreamCandidateScoresMethod) == null) {
+          CandidateScreeningGrpc.getStreamCandidateScoresMethod = getStreamCandidateScoresMethod =
+              io.grpc.MethodDescriptor.<com.recruitment.grpc.candidate.CandidateScreeningOuterClass.CandidateScoreRequest, com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ScoreResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "StreamCandidateScores"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.recruitment.grpc.candidate.CandidateScreeningOuterClass.CandidateScoreRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ScoreResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new CandidateScreeningMethodDescriptorSupplier("StreamCandidateScores"))
+              .build();
+        }
+      }
+    }
+    return getStreamCandidateScoresMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ResumeRequest,
+      com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ScreeningResponse> getSubmitMultipleResumesMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "submitMultipleResumes",
+      requestType = com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ResumeRequest.class,
+      responseType = com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ScreeningResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.CLIENT_STREAMING)
+  public static io.grpc.MethodDescriptor<com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ResumeRequest,
+      com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ScreeningResponse> getSubmitMultipleResumesMethod() {
+    io.grpc.MethodDescriptor<com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ResumeRequest, com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ScreeningResponse> getSubmitMultipleResumesMethod;
+    if ((getSubmitMultipleResumesMethod = CandidateScreeningGrpc.getSubmitMultipleResumesMethod) == null) {
+      synchronized (CandidateScreeningGrpc.class) {
+        if ((getSubmitMultipleResumesMethod = CandidateScreeningGrpc.getSubmitMultipleResumesMethod) == null) {
+          CandidateScreeningGrpc.getSubmitMultipleResumesMethod = getSubmitMultipleResumesMethod =
+              io.grpc.MethodDescriptor.<com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ResumeRequest, com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ScreeningResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.CLIENT_STREAMING)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "submitMultipleResumes"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ResumeRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ScreeningResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new CandidateScreeningMethodDescriptorSupplier("submitMultipleResumes"))
+              .build();
+        }
+      }
+    }
+    return getSubmitMultipleResumesMethod;
   }
 
   /**
@@ -127,16 +189,30 @@ public final class CandidateScreeningGrpc {
 
     /**
      */
-    default void submitResume(com.recruitment.grpc.candidate.ResumeRequest request,
-        io.grpc.stub.StreamObserver<com.recruitment.grpc.candidate.ScreeningResponse> responseObserver) {
+    default void submitResume(com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ResumeRequest request,
+        io.grpc.stub.StreamObserver<com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ScreeningResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getSubmitResumeMethod(), responseObserver);
     }
 
     /**
      */
-    default void getCandidateScore(com.recruitment.grpc.candidate.CandidateID request,
-        io.grpc.stub.StreamObserver<com.recruitment.grpc.candidate.ScoreResponse> responseObserver) {
+    default void getCandidateScore(com.recruitment.grpc.candidate.CandidateScreeningOuterClass.CandidateID request,
+        io.grpc.stub.StreamObserver<com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ScoreResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetCandidateScoreMethod(), responseObserver);
+    }
+
+    /**
+     */
+    default void streamCandidateScores(com.recruitment.grpc.candidate.CandidateScreeningOuterClass.CandidateScoreRequest request,
+        io.grpc.stub.StreamObserver<com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ScoreResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getStreamCandidateScoresMethod(), responseObserver);
+    }
+
+    /**
+     */
+    default io.grpc.stub.StreamObserver<com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ResumeRequest> submitMultipleResumes(
+        io.grpc.stub.StreamObserver<com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ScreeningResponse> responseObserver) {
+      return io.grpc.stub.ServerCalls.asyncUnimplementedStreamingCall(getSubmitMultipleResumesMethod(), responseObserver);
     }
   }
 
@@ -169,18 +245,34 @@ public final class CandidateScreeningGrpc {
 
     /**
      */
-    public void submitResume(com.recruitment.grpc.candidate.ResumeRequest request,
-        io.grpc.stub.StreamObserver<com.recruitment.grpc.candidate.ScreeningResponse> responseObserver) {
+    public void submitResume(com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ResumeRequest request,
+        io.grpc.stub.StreamObserver<com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ScreeningResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getSubmitResumeMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
      */
-    public void getCandidateScore(com.recruitment.grpc.candidate.CandidateID request,
-        io.grpc.stub.StreamObserver<com.recruitment.grpc.candidate.ScoreResponse> responseObserver) {
+    public void getCandidateScore(com.recruitment.grpc.candidate.CandidateScreeningOuterClass.CandidateID request,
+        io.grpc.stub.StreamObserver<com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ScoreResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getGetCandidateScoreMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void streamCandidateScores(com.recruitment.grpc.candidate.CandidateScreeningOuterClass.CandidateScoreRequest request,
+        io.grpc.stub.StreamObserver<com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ScoreResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncServerStreamingCall(
+          getChannel().newCall(getStreamCandidateScoresMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public io.grpc.stub.StreamObserver<com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ResumeRequest> submitMultipleResumes(
+        io.grpc.stub.StreamObserver<com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ScreeningResponse> responseObserver) {
+      return io.grpc.stub.ClientCalls.asyncClientStreamingCall(
+          getChannel().newCall(getSubmitMultipleResumesMethod(), getCallOptions()), responseObserver);
     }
   }
 
@@ -202,16 +294,24 @@ public final class CandidateScreeningGrpc {
 
     /**
      */
-    public com.recruitment.grpc.candidate.ScreeningResponse submitResume(com.recruitment.grpc.candidate.ResumeRequest request) {
+    public com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ScreeningResponse submitResume(com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ResumeRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getSubmitResumeMethod(), getCallOptions(), request);
     }
 
     /**
      */
-    public com.recruitment.grpc.candidate.ScoreResponse getCandidateScore(com.recruitment.grpc.candidate.CandidateID request) {
+    public com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ScoreResponse getCandidateScore(com.recruitment.grpc.candidate.CandidateScreeningOuterClass.CandidateID request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getGetCandidateScoreMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public java.util.Iterator<com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ScoreResponse> streamCandidateScores(
+        com.recruitment.grpc.candidate.CandidateScreeningOuterClass.CandidateScoreRequest request) {
+      return io.grpc.stub.ClientCalls.blockingServerStreamingCall(
+          getChannel(), getStreamCandidateScoresMethod(), getCallOptions(), request);
     }
   }
 
@@ -233,16 +333,16 @@ public final class CandidateScreeningGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<com.recruitment.grpc.candidate.ScreeningResponse> submitResume(
-        com.recruitment.grpc.candidate.ResumeRequest request) {
+    public com.google.common.util.concurrent.ListenableFuture<com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ScreeningResponse> submitResume(
+        com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ResumeRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getSubmitResumeMethod(), getCallOptions()), request);
     }
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<com.recruitment.grpc.candidate.ScoreResponse> getCandidateScore(
-        com.recruitment.grpc.candidate.CandidateID request) {
+    public com.google.common.util.concurrent.ListenableFuture<com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ScoreResponse> getCandidateScore(
+        com.recruitment.grpc.candidate.CandidateScreeningOuterClass.CandidateID request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getGetCandidateScoreMethod(), getCallOptions()), request);
     }
@@ -250,6 +350,8 @@ public final class CandidateScreeningGrpc {
 
   private static final int METHODID_SUBMIT_RESUME = 0;
   private static final int METHODID_GET_CANDIDATE_SCORE = 1;
+  private static final int METHODID_STREAM_CANDIDATE_SCORES = 2;
+  private static final int METHODID_SUBMIT_MULTIPLE_RESUMES = 3;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -269,12 +371,16 @@ public final class CandidateScreeningGrpc {
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
         case METHODID_SUBMIT_RESUME:
-          serviceImpl.submitResume((com.recruitment.grpc.candidate.ResumeRequest) request,
-              (io.grpc.stub.StreamObserver<com.recruitment.grpc.candidate.ScreeningResponse>) responseObserver);
+          serviceImpl.submitResume((com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ResumeRequest) request,
+              (io.grpc.stub.StreamObserver<com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ScreeningResponse>) responseObserver);
           break;
         case METHODID_GET_CANDIDATE_SCORE:
-          serviceImpl.getCandidateScore((com.recruitment.grpc.candidate.CandidateID) request,
-              (io.grpc.stub.StreamObserver<com.recruitment.grpc.candidate.ScoreResponse>) responseObserver);
+          serviceImpl.getCandidateScore((com.recruitment.grpc.candidate.CandidateScreeningOuterClass.CandidateID) request,
+              (io.grpc.stub.StreamObserver<com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ScoreResponse>) responseObserver);
+          break;
+        case METHODID_STREAM_CANDIDATE_SCORES:
+          serviceImpl.streamCandidateScores((com.recruitment.grpc.candidate.CandidateScreeningOuterClass.CandidateScoreRequest) request,
+              (io.grpc.stub.StreamObserver<com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ScoreResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -286,6 +392,9 @@ public final class CandidateScreeningGrpc {
     public io.grpc.stub.StreamObserver<Req> invoke(
         io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
+        case METHODID_SUBMIT_MULTIPLE_RESUMES:
+          return (io.grpc.stub.StreamObserver<Req>) serviceImpl.submitMultipleResumes(
+              (io.grpc.stub.StreamObserver<com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ScreeningResponse>) responseObserver);
         default:
           throw new AssertionError();
       }
@@ -298,16 +407,30 @@ public final class CandidateScreeningGrpc {
           getSubmitResumeMethod(),
           io.grpc.stub.ServerCalls.asyncUnaryCall(
             new MethodHandlers<
-              com.recruitment.grpc.candidate.ResumeRequest,
-              com.recruitment.grpc.candidate.ScreeningResponse>(
+              com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ResumeRequest,
+              com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ScreeningResponse>(
                 service, METHODID_SUBMIT_RESUME)))
         .addMethod(
           getGetCandidateScoreMethod(),
           io.grpc.stub.ServerCalls.asyncUnaryCall(
             new MethodHandlers<
-              com.recruitment.grpc.candidate.CandidateID,
-              com.recruitment.grpc.candidate.ScoreResponse>(
+              com.recruitment.grpc.candidate.CandidateScreeningOuterClass.CandidateID,
+              com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ScoreResponse>(
                 service, METHODID_GET_CANDIDATE_SCORE)))
+        .addMethod(
+          getStreamCandidateScoresMethod(),
+          io.grpc.stub.ServerCalls.asyncServerStreamingCall(
+            new MethodHandlers<
+              com.recruitment.grpc.candidate.CandidateScreeningOuterClass.CandidateScoreRequest,
+              com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ScoreResponse>(
+                service, METHODID_STREAM_CANDIDATE_SCORES)))
+        .addMethod(
+          getSubmitMultipleResumesMethod(),
+          io.grpc.stub.ServerCalls.asyncClientStreamingCall(
+            new MethodHandlers<
+              com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ResumeRequest,
+              com.recruitment.grpc.candidate.CandidateScreeningOuterClass.ScreeningResponse>(
+                service, METHODID_SUBMIT_MULTIPLE_RESUMES)))
         .build();
   }
 
@@ -317,7 +440,7 @@ public final class CandidateScreeningGrpc {
 
     @java.lang.Override
     public com.google.protobuf.Descriptors.FileDescriptor getFileDescriptor() {
-      return com.recruitment.grpc.candidate.CandidateScreeningProto.getDescriptor();
+      return com.recruitment.grpc.candidate.CandidateScreeningOuterClass.getDescriptor();
     }
 
     @java.lang.Override
@@ -358,6 +481,8 @@ public final class CandidateScreeningGrpc {
               .setSchemaDescriptor(new CandidateScreeningFileDescriptorSupplier())
               .addMethod(getSubmitResumeMethod())
               .addMethod(getGetCandidateScoreMethod())
+              .addMethod(getStreamCandidateScoresMethod())
+              .addMethod(getSubmitMultipleResumesMethod())
               .build();
         }
       }

@@ -1,12 +1,6 @@
 syntax = "proto3";
 
-option java_multiple_files = true;
-option java_package = "com.recruitment.grpc.job";
-option java_outer_classname = "JobMatchingProto";
-
-service JobMatching {
-  rpc MatchJob (JobMatchRequest) returns (JobMatchResponse);
-}
+package com.recruitment.grpc.job;
 
 message JobMatchRequest {
   string candidate_id = 1;
@@ -18,4 +12,11 @@ message JobMatchResponse {
   string matched_job_id = 1;
   string title = 2;
   float match_score = 3;
+}
+
+service JobMatching {
+  rpc MatchJob(JobMatchRequest) returns (JobMatchResponse);
+
+  
+  rpc StreamJobMatches(stream JobMatchRequest) returns (stream JobMatchResponse);
 }

@@ -12,38 +12,69 @@ public final class JobMatchingGrpc {
 
   private JobMatchingGrpc() {}
 
-  public static final java.lang.String SERVICE_NAME = "JobMatching";
+  public static final java.lang.String SERVICE_NAME = "com.recruitment.grpc.job.JobMatching";
 
   // Static method descriptors that strictly reflect the proto.
-  private static volatile io.grpc.MethodDescriptor<com.recruitment.grpc.job.JobMatchRequest,
-      com.recruitment.grpc.job.JobMatchResponse> getMatchJobMethod;
+  private static volatile io.grpc.MethodDescriptor<com.recruitment.grpc.job.JobMatchingOuterClass.JobMatchRequest,
+      com.recruitment.grpc.job.JobMatchingOuterClass.JobMatchResponse> getMatchJobMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "MatchJob",
-      requestType = com.recruitment.grpc.job.JobMatchRequest.class,
-      responseType = com.recruitment.grpc.job.JobMatchResponse.class,
+      requestType = com.recruitment.grpc.job.JobMatchingOuterClass.JobMatchRequest.class,
+      responseType = com.recruitment.grpc.job.JobMatchingOuterClass.JobMatchResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<com.recruitment.grpc.job.JobMatchRequest,
-      com.recruitment.grpc.job.JobMatchResponse> getMatchJobMethod() {
-    io.grpc.MethodDescriptor<com.recruitment.grpc.job.JobMatchRequest, com.recruitment.grpc.job.JobMatchResponse> getMatchJobMethod;
+  public static io.grpc.MethodDescriptor<com.recruitment.grpc.job.JobMatchingOuterClass.JobMatchRequest,
+      com.recruitment.grpc.job.JobMatchingOuterClass.JobMatchResponse> getMatchJobMethod() {
+    io.grpc.MethodDescriptor<com.recruitment.grpc.job.JobMatchingOuterClass.JobMatchRequest, com.recruitment.grpc.job.JobMatchingOuterClass.JobMatchResponse> getMatchJobMethod;
     if ((getMatchJobMethod = JobMatchingGrpc.getMatchJobMethod) == null) {
       synchronized (JobMatchingGrpc.class) {
         if ((getMatchJobMethod = JobMatchingGrpc.getMatchJobMethod) == null) {
           JobMatchingGrpc.getMatchJobMethod = getMatchJobMethod =
-              io.grpc.MethodDescriptor.<com.recruitment.grpc.job.JobMatchRequest, com.recruitment.grpc.job.JobMatchResponse>newBuilder()
+              io.grpc.MethodDescriptor.<com.recruitment.grpc.job.JobMatchingOuterClass.JobMatchRequest, com.recruitment.grpc.job.JobMatchingOuterClass.JobMatchResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "MatchJob"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.recruitment.grpc.job.JobMatchRequest.getDefaultInstance()))
+                  com.recruitment.grpc.job.JobMatchingOuterClass.JobMatchRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.recruitment.grpc.job.JobMatchResponse.getDefaultInstance()))
+                  com.recruitment.grpc.job.JobMatchingOuterClass.JobMatchResponse.getDefaultInstance()))
               .setSchemaDescriptor(new JobMatchingMethodDescriptorSupplier("MatchJob"))
               .build();
         }
       }
     }
     return getMatchJobMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<com.recruitment.grpc.job.JobMatchingOuterClass.JobMatchRequest,
+      com.recruitment.grpc.job.JobMatchingOuterClass.JobMatchResponse> getStreamJobMatchesMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "StreamJobMatches",
+      requestType = com.recruitment.grpc.job.JobMatchingOuterClass.JobMatchRequest.class,
+      responseType = com.recruitment.grpc.job.JobMatchingOuterClass.JobMatchResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.BIDI_STREAMING)
+  public static io.grpc.MethodDescriptor<com.recruitment.grpc.job.JobMatchingOuterClass.JobMatchRequest,
+      com.recruitment.grpc.job.JobMatchingOuterClass.JobMatchResponse> getStreamJobMatchesMethod() {
+    io.grpc.MethodDescriptor<com.recruitment.grpc.job.JobMatchingOuterClass.JobMatchRequest, com.recruitment.grpc.job.JobMatchingOuterClass.JobMatchResponse> getStreamJobMatchesMethod;
+    if ((getStreamJobMatchesMethod = JobMatchingGrpc.getStreamJobMatchesMethod) == null) {
+      synchronized (JobMatchingGrpc.class) {
+        if ((getStreamJobMatchesMethod = JobMatchingGrpc.getStreamJobMatchesMethod) == null) {
+          JobMatchingGrpc.getStreamJobMatchesMethod = getStreamJobMatchesMethod =
+              io.grpc.MethodDescriptor.<com.recruitment.grpc.job.JobMatchingOuterClass.JobMatchRequest, com.recruitment.grpc.job.JobMatchingOuterClass.JobMatchResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.BIDI_STREAMING)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "StreamJobMatches"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.recruitment.grpc.job.JobMatchingOuterClass.JobMatchRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.recruitment.grpc.job.JobMatchingOuterClass.JobMatchResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new JobMatchingMethodDescriptorSupplier("StreamJobMatches"))
+              .build();
+        }
+      }
+    }
+    return getStreamJobMatchesMethod;
   }
 
   /**
@@ -96,9 +127,16 @@ public final class JobMatchingGrpc {
 
     /**
      */
-    default void matchJob(com.recruitment.grpc.job.JobMatchRequest request,
-        io.grpc.stub.StreamObserver<com.recruitment.grpc.job.JobMatchResponse> responseObserver) {
+    default void matchJob(com.recruitment.grpc.job.JobMatchingOuterClass.JobMatchRequest request,
+        io.grpc.stub.StreamObserver<com.recruitment.grpc.job.JobMatchingOuterClass.JobMatchResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getMatchJobMethod(), responseObserver);
+    }
+
+    /**
+     */
+    default io.grpc.stub.StreamObserver<com.recruitment.grpc.job.JobMatchingOuterClass.JobMatchRequest> streamJobMatches(
+        io.grpc.stub.StreamObserver<com.recruitment.grpc.job.JobMatchingOuterClass.JobMatchResponse> responseObserver) {
+      return io.grpc.stub.ServerCalls.asyncUnimplementedStreamingCall(getStreamJobMatchesMethod(), responseObserver);
     }
   }
 
@@ -131,10 +169,18 @@ public final class JobMatchingGrpc {
 
     /**
      */
-    public void matchJob(com.recruitment.grpc.job.JobMatchRequest request,
-        io.grpc.stub.StreamObserver<com.recruitment.grpc.job.JobMatchResponse> responseObserver) {
+    public void matchJob(com.recruitment.grpc.job.JobMatchingOuterClass.JobMatchRequest request,
+        io.grpc.stub.StreamObserver<com.recruitment.grpc.job.JobMatchingOuterClass.JobMatchResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getMatchJobMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public io.grpc.stub.StreamObserver<com.recruitment.grpc.job.JobMatchingOuterClass.JobMatchRequest> streamJobMatches(
+        io.grpc.stub.StreamObserver<com.recruitment.grpc.job.JobMatchingOuterClass.JobMatchResponse> responseObserver) {
+      return io.grpc.stub.ClientCalls.asyncBidiStreamingCall(
+          getChannel().newCall(getStreamJobMatchesMethod(), getCallOptions()), responseObserver);
     }
   }
 
@@ -156,7 +202,7 @@ public final class JobMatchingGrpc {
 
     /**
      */
-    public com.recruitment.grpc.job.JobMatchResponse matchJob(com.recruitment.grpc.job.JobMatchRequest request) {
+    public com.recruitment.grpc.job.JobMatchingOuterClass.JobMatchResponse matchJob(com.recruitment.grpc.job.JobMatchingOuterClass.JobMatchRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getMatchJobMethod(), getCallOptions(), request);
     }
@@ -180,14 +226,15 @@ public final class JobMatchingGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<com.recruitment.grpc.job.JobMatchResponse> matchJob(
-        com.recruitment.grpc.job.JobMatchRequest request) {
+    public com.google.common.util.concurrent.ListenableFuture<com.recruitment.grpc.job.JobMatchingOuterClass.JobMatchResponse> matchJob(
+        com.recruitment.grpc.job.JobMatchingOuterClass.JobMatchRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getMatchJobMethod(), getCallOptions()), request);
     }
   }
 
   private static final int METHODID_MATCH_JOB = 0;
+  private static final int METHODID_STREAM_JOB_MATCHES = 1;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -207,8 +254,8 @@ public final class JobMatchingGrpc {
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
         case METHODID_MATCH_JOB:
-          serviceImpl.matchJob((com.recruitment.grpc.job.JobMatchRequest) request,
-              (io.grpc.stub.StreamObserver<com.recruitment.grpc.job.JobMatchResponse>) responseObserver);
+          serviceImpl.matchJob((com.recruitment.grpc.job.JobMatchingOuterClass.JobMatchRequest) request,
+              (io.grpc.stub.StreamObserver<com.recruitment.grpc.job.JobMatchingOuterClass.JobMatchResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -220,6 +267,9 @@ public final class JobMatchingGrpc {
     public io.grpc.stub.StreamObserver<Req> invoke(
         io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
+        case METHODID_STREAM_JOB_MATCHES:
+          return (io.grpc.stub.StreamObserver<Req>) serviceImpl.streamJobMatches(
+              (io.grpc.stub.StreamObserver<com.recruitment.grpc.job.JobMatchingOuterClass.JobMatchResponse>) responseObserver);
         default:
           throw new AssertionError();
       }
@@ -232,9 +282,16 @@ public final class JobMatchingGrpc {
           getMatchJobMethod(),
           io.grpc.stub.ServerCalls.asyncUnaryCall(
             new MethodHandlers<
-              com.recruitment.grpc.job.JobMatchRequest,
-              com.recruitment.grpc.job.JobMatchResponse>(
+              com.recruitment.grpc.job.JobMatchingOuterClass.JobMatchRequest,
+              com.recruitment.grpc.job.JobMatchingOuterClass.JobMatchResponse>(
                 service, METHODID_MATCH_JOB)))
+        .addMethod(
+          getStreamJobMatchesMethod(),
+          io.grpc.stub.ServerCalls.asyncBidiStreamingCall(
+            new MethodHandlers<
+              com.recruitment.grpc.job.JobMatchingOuterClass.JobMatchRequest,
+              com.recruitment.grpc.job.JobMatchingOuterClass.JobMatchResponse>(
+                service, METHODID_STREAM_JOB_MATCHES)))
         .build();
   }
 
@@ -244,7 +301,7 @@ public final class JobMatchingGrpc {
 
     @java.lang.Override
     public com.google.protobuf.Descriptors.FileDescriptor getFileDescriptor() {
-      return com.recruitment.grpc.job.JobMatchingProto.getDescriptor();
+      return com.recruitment.grpc.job.JobMatchingOuterClass.getDescriptor();
     }
 
     @java.lang.Override
@@ -284,6 +341,7 @@ public final class JobMatchingGrpc {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new JobMatchingFileDescriptorSupplier())
               .addMethod(getMatchJobMethod())
+              .addMethod(getStreamJobMatchesMethod())
               .build();
         }
       }

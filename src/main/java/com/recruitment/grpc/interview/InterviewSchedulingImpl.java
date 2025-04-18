@@ -1,5 +1,11 @@
 package com.recruitment.grpc.interview;
 
+import com.recruitment.grpc.interview.InterviewSchedulingOuterClass.AvailabilityRequest;
+import com.recruitment.grpc.interview.InterviewSchedulingOuterClass.AvailabilityResponse;
+import com.recruitment.grpc.interview.InterviewSchedulingOuterClass.ScheduleDetails;
+import com.recruitment.grpc.interview.InterviewSchedulingOuterClass.ScheduleQuery;
+import com.recruitment.grpc.interview.InterviewSchedulingOuterClass.ScheduleRequest;
+import com.recruitment.grpc.interview.InterviewSchedulingOuterClass.ScheduleResponse;
 import io.grpc.stub.StreamObserver;
 import java.util.*;
 import java.util.logging.Level;
@@ -88,4 +94,30 @@ public class InterviewSchedulingImpl extends InterviewSchedulingGrpc.InterviewSc
             responseObserver.onError(e);
         }
     }
+    @Override
+public StreamObserver<AvailabilityRequest> bulkAddAvailability(final StreamObserver<AvailabilityResponse> responseObserver) {
+    return new StreamObserver<AvailabilityRequest>() {
+        @Override
+        public void onNext(AvailabilityRequest request) {
+            String userId = request.getUserId();
+            List<String> times = request.getAvailableTimesList();
+            availabilityMap.put(userId, new ArrayList<>(times));
+            System.out.println("[BulkAddAvailability] Added: " + userId + " -> " + times);
+        }
+
+        @Override
+        public void onError(Throwable t) {
+            System.err.println("BulkAddAvailability error: " + t.getMessage());
+        }
+
+        @Override
+        public void onCompleted() {
+            AvailabilityResponse response = AvailabilityResponse.newBuilder()
+                    .setStatus("All availabilities saved")
+                    .build();
+            responseObserver.onNext(response);
+            responseObserver.onCompleted();
+        }
+    };
+}
 }

@@ -9,3 +9,42 @@
 - ID: job-003
 - Title: Fullstack Developer
 - Score: 0.75
+4월 18, 2025 8:03:32 오전 com.recruitment.grpc.gui.MainWindow$1 actionPerformed
+정보: Candidate Score: 87.5
+4월 18, 2025 8:03:33 오전 com.recruitment.grpc.gui.MainWindow$2 actionPerformed
+정보: Availability added for candidate and interviewer.
+4월 18, 2025 8:03:33 오전 com.recruitment.grpc.gui.MainWindow$3 actionPerformed
+정보: Interview scheduled at: No common time available
+4월 18, 2025 8:03:34 오전 com.recruitment.grpc.gui.MainWindow$4 actionPerformed
+정보: Matched Job:
+- ID: job-003
+- Title: Fullstack Developer
+- Score: 0.75
+4월 18, 2025 9:54:02 오전 com.recruitment.grpc.gui.MainWindow$2 actionPerformed
+정보: Candidate Score: 87.0
+4월 18, 2025 9:54:03 오전 com.recruitment.grpc.gui.MainWindow$3 actionPerformed
+정보: Availability added for candidate and interviewer.
+4월 18, 2025 9:54:04 오전 com.recruitment.grpc.gui.MainWindow$4 actionPerformed
+정보: Interview scheduled at: No common time available
+4월 18, 2025 9:54:04 오전 com.recruitment.grpc.gui.MainWindow$5 actionPerformed
+정보: Matched Job:
+- ID: job-003
+- Title: Fullstack Developer
+- Score: 0.75
+4월 18, 2025 9:54:06 오전 com.recruitment.grpc.gui.MainWindow$2 actionPerformed
+정보: Candidate Score: 87.0
+4월 18, 2025 9:54:08 오전 com.recruitment.grpc.gui.MainWindow$3 actionPerformed
+정보: Availability added for candidate and interviewer.
+4월 18, 2025 9:54:09 오전 com.recruitment.grpc.gui.MainWindow$4 actionPerformed
+정보: Interview scheduled at: No common time available
+4월 18, 2025 9:54:45 오전 com.recruitment.grpc.gui.MainWindow$2 actionPerformed
+정보: Candidate Score: 87.0
+4월 18, 2025 9:54:46 오전 com.recruitment.grpc.gui.MainWindow$3 actionPerformed
+정보: Availability added for candidate and interviewer.
+4월 18, 2025 9:54:46 오전 com.recruitment.grpc.gui.MainWindow$4 actionPerformed
+정보: Interview scheduled at: No common time available
+4월 18, 2025 9:54:47 오전 com.recruitment.grpc.gui.MainWindow$5 actionPerformed
+정보: Matched Job:
+- ID: job-003
+- Title: Fullstack Developer
+- Score: 0.75
